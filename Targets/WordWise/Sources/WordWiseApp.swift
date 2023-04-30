@@ -5,7 +5,7 @@ import WordWiseUI
 struct WordWiseApp: App {
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            HomeView()
         }
     }
 }
