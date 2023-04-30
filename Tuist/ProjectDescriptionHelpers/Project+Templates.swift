@@ -29,19 +29,19 @@ extension Project {
                 sources: ["Targets/\(name)/Sources/**"],
                 resources: [],
                 dependencies: [])
-        let tests = Target(name: "\(name)Tests",
-                platform: platform,
-                product: .unitTests,
-                bundleId: "io.tuist.\(name)Tests",
-                infoPlist: .default,
-                sources: ["Targets/\(name)/Tests/**"],
-                resources: [],
-                dependencies: [.target(name: name)])
+//        let tests = Target(name: "\(name)Tests",
+//                platform: platform,
+//                product: .unitTests,
+//                bundleId: "io.tuist.\(name)Tests",
+//                infoPlist: .default,
+//                sources: ["Targets/\(name)/Tests/**"],
+//                resources: [],
+//                dependencies: [.target(name: name)])
         return [sources] // TODO: Add test targets from here.
     }
 
     /// Helper function to create the application target and the unit test target.
-    private static func makeAppTargets(name: String, platform: Platform, dependencies: [TargetDependency]) -> [Target] {
+    public static func makeAppTargets(name: String, platform: Platform, dependencies: [TargetDependency]) -> [Target] {
         let platform: Platform = platform
         let infoPlist: [String: InfoPlist.Value] = [
             "CFBundleShortVersionString": "1.0",
@@ -61,16 +61,16 @@ extension Project {
             dependencies: dependencies
         )
 
-        let testTarget = Target(
-            name: "\(name)Tests",
-            platform: platform,
-            product: .unitTests,
-            bundleId: "io.tuist.\(name)Tests",
-            infoPlist: .default,
-            sources: ["Targets/\(name)/Tests/**"],
-            dependencies: [
-                .target(name: "\(name)")
-        ])
+//        let testTarget = Target(
+//            name: "\(name)Tests",
+//            platform: platform,
+//            product: .unitTests,
+//            bundleId: "io.tuist.\(name)Tests",
+//            infoPlist: .default,
+//            sources: ["Targets/\(name)/Tests/**"],
+//            dependencies: [
+//                .target(name: "\(name)")
+//        ])
         return [mainTarget] // TODO: Add test target from here.
     }
 }

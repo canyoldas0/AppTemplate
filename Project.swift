@@ -24,19 +24,42 @@ import MyPlugin
 let localHelper = LocalHelper(name: "MyPlugin")
 
 // Creates our project using a helper function defined in ProjectDescriptionHelpers
-let project = Project.app(
-    name: "WordWise",
-    platform: .iOS,
-    additionalTargets: ["WordWiseUI"])
+//let project = Project.app(
+//    name: "WordWise",
+//    platform: .iOS,
+//    additionalTargets: ["WordWiseUI"])
+
+let infoPlist: [String: InfoPlist.Value] = [
+    "CFBundleShortVersionString": "1.0",
+    "CFBundleVersion": "1",
+    "UIMainStoryboardFile": "",
+    "UILaunchStoryboardName": "LaunchScreen"
+]
 
 let project = Project(
     name: "WordWise",
     organizationName: "can.yoldas",
-    packages: [.],
-    settings: <#T##Settings?#>,
-    targets: <#T##[Target]#>,
-    schemes: <#T##[Scheme]#>,
-    fileHeaderTemplate: <#T##FileHeaderTemplate?#>,
-    additionalFiles: <#T##[FileElement]#>,
-    resourceSynthesizers: <#T##[ResourceSynthesizer]#>
+    targets: [
+        Target(name: "WordWise",
+               platform: .iOS,
+               product: .app,
+               bundleId: "com.canyoldas.wordwise",
+               infoPlist: .extendingDefault(with: infoPlist),
+               sources: ["Targets/WordWise/Sources/**"],
+               resources: ["Targets/Wordwise/Resources/**"],
+               dependencies: [.external(name: "Cwifty")]
+              ),
+        .wordWiseUI
+    ]
 )
+
+ extension Target {
+    static let wordWiseUI = Target(name: "WordWiseUI",
+                                   platform: .iOS,
+                                   product: .framework,
+                                   bundleId: "io.tuist.wordwiseui",
+                                   infoPlist: .default,
+                                   sources: ["Targets/WordWiseUI/Sources/**"],
+                                   resources: [],
+                                   dependencies: [])
+}
