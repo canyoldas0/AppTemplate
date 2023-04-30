@@ -48,7 +48,7 @@ let project = Project(
                                      bundleId: "com.canyoldas.wordwise",
                                      infoPlist: .defaultWithExtension,
                                      sources: ["Targets/WordWise/Sources/**"],
-                                     resources: ["Targets/Wordwise/Resources/**"],
+                                     resources: ["Targets/WordWise/Resources/**"],
                                      dependencies: [.external(name: "Cwifty")]
      )
 }
