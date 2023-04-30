@@ -23,32 +23,11 @@ import MyPlugin
 // Local plugin loaded
 let localHelper = LocalHelper(name: "MyPlugin")
 
-// Creates our project using a helper function defined in ProjectDescriptionHelpers
-//let project = Project.app(
-//    name: "WordWise",
-//    platform: .iOS,
-//    additionalTargets: ["WordWiseUI"])
-
-let infoPlist: [String: InfoPlist.Value] = [
-    "CFBundleShortVersionString": "1.0",
-    "CFBundleVersion": "1",
-    "UIMainStoryboardFile": "",
-    "UILaunchStoryboardName": "LaunchScreen"
-]
-
 let project = Project(
     name: "WordWise",
     organizationName: "can.yoldas",
     targets: [
-        Target(name: "WordWise",
-               platform: .iOS,
-               product: .app,
-               bundleId: "com.canyoldas.wordwise",
-               infoPlist: .extendingDefault(with: infoPlist),
-               sources: ["Targets/WordWise/Sources/**"],
-               resources: ["Targets/Wordwise/Resources/**"],
-               dependencies: [.external(name: "Cwifty")]
-              ),
+        .mainTarget,
         .wordWiseUI
     ]
 )
@@ -62,4 +41,23 @@ let project = Project(
                                    sources: ["Targets/WordWiseUI/Sources/**"],
                                    resources: [],
                                    dependencies: [])
+
+     static let mainTarget =  Target(name: "WordWise",
+                                     platform: .iOS,
+                                     product: .app,
+                                     bundleId: "com.canyoldas.wordwise",
+                                     infoPlist: .defaultWithExtension,
+                                     sources: ["Targets/WordWise/Sources/**"],
+                                     resources: ["Targets/Wordwise/Resources/**"],
+                                     dependencies: [.external(name: "Cwifty")]
+     )
+}
+
+extension InfoPlist {
+    static let defaultWithExtension: InfoPlist = .extendingDefault(with: [
+        "CFBundleShortVersionString": "1.0",
+        "CFBundleVersion": "1",
+        "UIMainStoryboardFile": "",
+        "UILaunchStoryboardName": "LaunchScreen"
+    ])
 }
