@@ -2,24 +2,6 @@ import ProjectDescription
 import ProjectDescriptionHelpers
 import MyPlugin
 
-/*
-                +-------------+
-                |             |
-                |     App     | Contains WordWise App target and WordWise unit-test target
-                |             |
-         +------+-------------+-------+
-         |         depends on         |
-         |                            |
- +----v-----+                   +-----v-----+
- |          |                   |           |
- |   Kit    |                   |     UI    |   Two independent frameworks to share code and start modularising your app
- |          |                   |           |
- +----------+                   +-----------+
-
- */
-
-// MARK: - Project
-
 // Local plugin loaded
 let localHelper = LocalHelper(name: "MyPlugin")
 
@@ -28,7 +10,8 @@ let project = Project(
     organizationName: "can.yoldas",
     targets: [
         .mainTarget,
-        .wordWiseUI
+        .wordWiseUI,
+        .utils
     ]
 )
 
@@ -40,7 +23,7 @@ let project = Project(
                                    infoPlist: .default,
                                    sources: ["Targets/WordWiseUI/Sources/**"],
                                    resources: [],
-                                   dependencies: [])
+                                   dependencies: [.target(.utils)])
 
      static let mainTarget =  Target(name: "WordWise",
                                      platform: .iOS,
@@ -49,8 +32,17 @@ let project = Project(
                                      infoPlist: .defaultWithExtension,
                                      sources: ["Targets/WordWise/Sources/**"],
                                      resources: ["Targets/WordWise/Resources/**"],
-                                     dependencies: [.external(name: "Cwifty")]
+                                     dependencies: [.external(name: "Cwifty"), .target(.wordWiseUI), .target(.utils)]
      )
+
+     static let utils = Target(name: "WordWiseUtils",
+                                platform: .iOS,
+                                product: .framework,
+                                bundleId: "io.tuist.wordwise.utils",
+                                infoPlist: .default,
+                                sources: ["Targets/WordWiseUtils/Sources/**"],
+                                resources: ["Targets/WordWiseUtils/Resources/**"],
+                                dependencies: [])
 }
 
 extension InfoPlist {
