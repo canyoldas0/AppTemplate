@@ -1,5 +1,5 @@
 import SwiftUI
-import WordWiseUI
+import AppUI
 
 @main
 struct WordWiseApp: App {

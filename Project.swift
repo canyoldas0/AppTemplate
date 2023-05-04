@@ -6,42 +6,42 @@ import MyPlugin
 let localHelper = LocalHelper(name: "MyPlugin")
 
 let project = Project(
-    name: "WordWise",
-    organizationName: "can.yoldas",
+    name: "<App Name>", // App's name
+    organizationName: "", // Organization name
     targets: [
         .mainTarget,
-        .wordWiseUI,
+        .appUI,
         .utils
     ]
 )
 
  extension Target {
-    static let wordWiseUI = Target(name: "WordWiseUI",
+    static let appUI = Target(name: "AppUI",
                                    platform: .iOS,
                                    product: .framework,
-                                   bundleId: "io.tuist.wordwiseui",
+                                   bundleId: "io.tuist.app-ui",
                                    infoPlist: .default,
-                                   sources: ["Targets/WordWiseUI/Sources/**"],
+                                   sources: ["Targets/AppUI/Sources/**"],
                                    resources: [],
                                    dependencies: [.target(.utils)])
 
-     static let mainTarget =  Target(name: "WordWise",
+     static let mainTarget =  Target(name: "App",
                                      platform: .iOS,
                                      product: .app,
                                      bundleId: "com.canyoldas.wordwise",
                                      infoPlist: .defaultWithExtension,
-                                     sources: ["Targets/WordWise/Sources/**"],
-                                     resources: ["Targets/WordWise/Resources/**"],
-                                     dependencies: [.external(name: "Cwifty"), .target(.wordWiseUI), .target(.utils)]
+                                     sources: ["Targets/App/Sources/**"],
+                                     resources: ["Targets/App/Resources/**"],
+                                     dependencies: [.target(.appUI), .target(.utils)]
      )
 
-     static let utils = Target(name: "WordWiseUtils",
+     static let utils = Target(name: "AppUtils",
                                 platform: .iOS,
                                 product: .framework,
-                                bundleId: "io.tuist.wordwise.utils",
+                                bundleId: "io.tuist.app.utils",
                                 infoPlist: .default,
-                                sources: ["Targets/WordWiseUtils/Sources/**"],
-                                resources: ["Targets/WordWiseUtils/Resources/**"],
+                                sources: ["Targets/AppUtils/Sources/**"],
+                                resources: ["Targets/AppUtils/Resources/**"],
                                 dependencies: [])
 }
 
